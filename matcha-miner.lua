@@ -1,1 +1,846 @@
-local v1=game:GetService("Players")local v2=v1.LocalPlayer;if not v2 then repeat wait(1)v2=v1.LocalPlayer until v2 end;local v3={}v3.__index=v3;local v4=13;local v5=Color3.new(0,0,0)local v6=v2;local v7=v6:GetMouse()local function v8(x,a,b)if x>b then return b elseif x<a then return a else return x end end;local function v9()return Vector2.new(v7.X,v7.Y)end;local function v10(a,b,t)return a+(b-a)*t end;local function v11(t)for _,d in pairs(t)do d.Visible=false end end;local function v12(t)for _,d in pairs(t)do d:Remove()end end;function v3.new(n,s,wm)local self=setmetatable({},v3)self._i={['m1']={id=0x01,h=false,c=false},['end']={id=0x23,h=false,c=false}}self._at=nil;self._o=true;self._lo=nil;self._wm=true;self._bo=0;self._ti=os.clock()self._id=n;self._wa=wm;self.x,self.y=20,60;self.w=s and s.x or 300;self.h=s and s.y or 400;self._ad=nil;self._c1=Color3.fromRGB(255,127,0)self._c2=Color3.fromRGB(255,255,255)self._c3=Color3.fromRGB(0,0,0)self._c4=Color3.fromRGB(25,25,25)self._c5=Color3.fromRGB(38,38,38)self._c6=Color3.fromRGB(76,76,76)self._th,self._tbh,self._p=25,20,6;local function nd(t,p)local d=Drawing.new(t)for k,v in pairs(p)do d[k]=v end;return d end;local d1=nd('Square',{Filled=true,Color=self._c5})local d2=nd('Square',{Filled=false,Thickness=1,Color=self._c3})local d3=nd('Square',{Filled=false,Thickness=1,Color=self._c4})local d4=nd('Square',{Filled=true,Color=self._c4})local d5=nd('Text',{Text=self._id,Outline=true,Color=self._c2})local d6=nd('Square',{Filled=true,Color=self._c5})local d7=nd('Square',{Filled=true,Color=self._c1})local d8=nd('Square',{Filled=false,Thickness=1,Color=self._c3})local d9=nd('Square',{Filled=false,Thickness=1,Color=self._c4})local d10=nd('Text',{Text=n,Outline=true,Color=self._c2})self._tr={['_t']={},['_d']={d2,d3,d1,d4,d5,d6,d7,d8,d9,d10}}return self end;function v3._gtb(str)return #str*7,13 end;function v3._imb(o,s)local m=v9()return m.x>=o.x and m.x<=o.x+s.x and m.y>=o.y and m.y<=o.y+s.y end;function v3:ToggleMenu(s)self._o=s end;function v3:_rd()if self._ad then v12(self._ad['_d'])self._ad=nil end end;function v3:_sd(def,ch,cb,pos,w)if self._ad then self:_rd()end;local dr={}local b=Drawing.new('Square')b.Filled=true;b.Color=self._c5;table.insert(dr,b)local bo=Drawing.new('Square')bo.Filled=false;bo.Thickness=1;bo.Color=self._c4;table.insert(dr,bo)for _,c in ipairs(ch)do local t=Drawing.new('Text')t.Outline=true;t.Color=self._c2;t.Text=c;table.insert(dr,t)end;self._ad={['ch']=ch,['cb']=cb,['p']=pos,['w']=w,['_d']=dr}end;function v3:Tab(n)local b=Drawing.new('Square')b.Color=self._c4;b.Filled=true;local s=Drawing.new('Square')s.Color=v5;s.Filled=true;local c=Drawing.new('Square')c.Color=self._c1;c.Filled=true;local t=Drawing.new('Text')t.Color=self._c2;t.Outline=true;t.Text=n;table.insert(self._tr['_t'],{['n']=n,['_s']={},['_d']={b,s,c,t}})if self._at==nil then self._at=n end;return n end;function v3:Section(tn,n)for _,t in ipairs(self._tr['_t'])do if t['n']==tn then local b=Drawing.new('Square')b.Filled=true;b.Color=self._c5;local c=Drawing.new('Square')c.Filled=false;c.Thickness=1;c.Color=self._c3;local bo=Drawing.new('Square')bo.Filled=false;bo.Thickness=1;bo.Color=self._c6;local ti=Drawing.new('Text')ti.Text=n;ti.Outline=true;ti.Color=self._c2;local s={['n']=n,['_i']={},['_d']={b,c,bo,ti}}table.insert(t._s,s)return n end end end;function v3:_ai(tn,sn,it)for _,t in pairs(self._tr._t)do if t.n==tn then for _,s in pairs(t._s)do if s.n==sn then table.insert(s._i,it)return end end end end end;function v3:Checkbox(tn,sn,l,dv,cb)local o=Drawing.new('Square')o.Color=self._c3;o.Thickness=1;o.Filled=false;local c=Drawing.new('Square')c.Color=self._c1;c.Filled=true;local cs=Drawing.new('Square')cs.Color=v5;cs.Filled=true;local t=Drawing.new('Text')t.Color=self._c2;t.Outline=true;t.Text=l;self:_ai(tn,sn,{['ty']='chk',['v']=dv,['cb']=cb,['_d']={o,c,cs,t}})end;function v3:Slider(tn,sn,l,dv,cb,min,max,st,ap)local o=Drawing.new('Square')o.Color=self._c3;o.Filled=true;local f=Drawing.new('Square')f.Color=self._c1;f.Filled=true;local fs=Drawing.new('Square')fs.Color=v5;fs.Filled=true;local v=Drawing.new('Text')v.Color=self._c2;v.Outline=true;v.Text=l;local t=Drawing.new('Text')t.Color=self._c2;t.Outline=true;t.Text=l;self:_ai(tn,sn,{['ty']='sld',['v']=dv,['cb']=cb,['min']=min,['max']=max,['st']=st,['ap']=ap,['_d']={o,f,fs,v,t}})end;function v3:Choice(tn,sn,l,dv,cb,ch)local o=Drawing.new('Square')o.Color=self._c3;o.Thickness=1;o.Filled=false;local f=Drawing.new('Square')f.Color=self._c3;f.Filled=true;local it=dv;if type(dv)=="table"then if #dv==0 then it="None"else it=table.concat(dv,", ")end end;local vt=Drawing.new('Text')vt.Color=self._c2;vt.Outline=true;vt.Text=tostring(it)local lt=Drawing.new('Text')lt.Color=self._c2;lt.Outline=true;lt.Text=l;local item={['ty']='chc',['v']=dv,['cb']=cb,['ch']=ch,['_d']={o,f,vt,lt}}self:_ai(tn,sn,item)return item end;function v3:DualChoice(tn,sn,l1,d1,cb1,ch1,l2,d2,cb2,ch2)local o1=Drawing.new('Square')o1.Color=self._c3;o1.Thickness=1;o1.Filled=false;local f1=Drawing.new('Square')f1.Color=self._c3;f1.Filled=true;local v1=Drawing.new('Text')v1.Color=self._c2;v1.Outline=true;v1.Text=tostring(d1)local lb1=Drawing.new('Text')lb1.Color=self._c2;lb1.Outline=true;lb1.Text=l1;local o2=Drawing.new('Square')o2.Color=self._c3;o2.Thickness=1;o2.Filled=false;local f2=Drawing.new('Square')f2.Color=self._c3;f2.Filled=true;local v2=Drawing.new('Text')v2.Color=self._c2;v2.Outline=true;v2.Text=tostring(d2)local lb2=Drawing.new('Text')lb2.Color=self._c2;lb2.Outline=true;lb2.Text=l2;local item={['ty']='dch',['v1']=d1,['cb1']=cb1,['ch1']=ch1,['v2']=d2,['cb2']=cb2,['ch2']=ch2,['_d']={o1,f1,v1,lb1,o2,f2,v2,lb2}}self:_ai(tn,sn,item)return item end;function v3:Step()local dt=math.max(os.clock()-self._ti,0.0035)local mp=v9()local m1=iskeypressed(0x01)if m1 and not self._i.m1.h then self._i.m1.c=true else self._i.m1.c=false end;self._i.m1.h=m1;local mo=self._o;local cf=mo and self._i.m1.c;local bo=self._bo;local cv=bo>0.22;self._bo=v8(v10(bo,mo and 1 or 0,dt*11),0,1)if self._lo~=mo then setrobloxinput(not mo)self._lo=mo end;local wB,wC,wCr,wBo,wT=unpack(self._tr['_d'],6,10)if self._wm then local st=self._id;if self._wa then for _,a in ipairs(self._wa)do local s=a()if s then st=st.." | "..s end end end;local ww=#st*7;local wp=Vector2.new(20,20)local ws=Vector2.new(ww+18,30)wB.Position=wp;wB.Size=ws;wB.Visible=true;wCr.Position=wp;wCr.Size=ws;wCr.Visible=true;wBo.Position=wp+Vector2.new(1,1)wBo.Size=ws+Vector2.new(-2,-2)wBo.Visible=true;wC.Position=wp+Vector2.new(2,2)wC.Size=Vector2.new(ws.x-4,1)wC.Visible=true;wT.Position=wp+Vector2.new(8,8)wT.Text=st;wT.Visible=true else wB.Visible=false;wT.Visible=false end;local uC,uB,uBa,uN,uTi=unpack(self._tr['_d'],1,5)uBa.Position=Vector2.new(self.x,self.y)uBa.Size=Vector2.new(self.w,self.h)uBa.Transparency=bo;uBa.Visible=cv;uB.Position=Vector2.new(self.x+1,self.y+1)uB.Size=Vector2.new(self.w-2,self.h-2)uB.Transparency=bo;uB.Visible=cv;uC.Position=Vector2.new(self.x,self.y)uC.Size=Vector2.new(self.w,self.h)uC.Transparency=bo;uC.Visible=cv;uN.Position=Vector2.new(self.x+2,self.y+2)uN.Size=Vector2.new(self.w-4,self._th-4)uN.Transparency=bo;uN.Visible=cv;uTi.Position=Vector2.new(self.x+7,self.y+4)uTi.Transparency=bo;uTi.Visible=cv;local tr=Vector2.new(self.w,self._th)if self._imb(Vector2.new(self.x,self.y),tr)and cf then self._dr=true;self._do=mp-Vector2.new(self.x,self.y)end;if self._dr then if self._i.m1.h then self.x=mp.x-self._do.x;self.y=mp.y-self._do.y else self._dr=false end end;local nt=#self._tr['_t']for ti,t in ipairs(self._tr['_t'])do local to=self._at==t['n']local tw=(self.w-12-(nt-1)*2)/nt;local tp=Vector2.new(self.x+6+(ti-1)*(tw+2),self.y+self._th+6)t['_d'][1].Position=tp;t['_d'][1].Size=Vector2.new(tw,self._tbh)t['_d'][1].Transparency=bo;t['_d'][1].Visible=cv;t['_d'][3].Position=tp;t['_d'][3].Size=Vector2.new(tw,1)t['_d'][3].Transparency=bo;t['_d'][3].Visible=to and cv;t['_d'][4].Position=tp+Vector2.new(4,4)t['_d'][4].Transparency=bo;t['_d'][4].Visible=cv;if cf and self._imb(tp,Vector2.new(tw,self._tbh))then self._at=t['n']end;if to then local sy=self._p*2+self._tbh+self._th;for _,s in ipairs(t['_s'])do local sp=Vector2.new(self.x+10,self.y+sy)local sw=self.w-20;local iy=20;for _,i in ipairs(s._i)do local ip=sp+Vector2.new(10,iy)if i.ty=='chk'then local bs=Vector2.new(15,15)i._d[1].Position=ip;i._d[1].Size=bs;i._d[1].Visible=cv;i._d[2].Position=ip+Vector2.new(1,1)i._d[2].Size=bs-Vector2.new(2,2)i._d[2].Visible=i.v and cv;i._d[3].Position=ip+Vector2.new(1,bs.y-2)i._d[3].Size=Vector2.new(bs.x-2,1)i._d[3].Visible=i.v and cv;i._d[4].Position=ip+Vector2.new(22,0)i._d[4].Visible=cv;if self._imb(ip,Vector2.new(sw-20,16))and cf then i.v=not i.v;if i.cb then i.cb(i.v)end end;iy=iy+25 elseif i.ty=='sld'then local slw=sw-30;i._d[5].Position=ip;i._d[5].Visible=cv;i._d[1].Position=ip+Vector2.new(0,15)i._d[1].Size=Vector2.new(slw,10)i._d[1].Visible=cv;local pct=(i.v-i.min)/(i.max-i.min)i._d[2].Position=ip+Vector2.new(1,16)i._d[2].Size=Vector2.new((slw-2)*pct,8)i._d[2].Visible=cv;i._d[4].Position=ip+Vector2.new(slw-40,0)i._d[4].Text=tostring(i.v)..(i.ap or"")i._d[4].Visible=cv;if self._i.m1.h and self._imb(ip+Vector2.new(0,15),Vector2.new(slw,10))then local mx=mp.x-(ip.x)local np=v8(mx/slw,0,1)local nv=math.floor((i.min+(i.max-i.min)*np)/i.st+0.5)*i.st;if nv~=i.v then i.v=nv;if i.cb then i.cb(nv)end end end;iy=iy+35 elseif i.ty=='chc'then local chw=sw-30;local chh=20;i._d[4].Position=ip;i._d[4].Visible=cv;i._d[1].Position=ip+Vector2.new(0,15)i._d[1].Size=Vector2.new(chw,chh)i._d[1].Visible=cv;i._d[2].Position=ip+Vector2.new(2,17)i._d[2].Size=Vector2.new(chw-4,chh-4)i._d[2].Visible=cv;local dt=i.v;if type(i.v)=="table"then if #i.v>0 then dt=table.concat(i.v,", ")if #dt>20 then dt=#i.v.." selected"end else dt="None"end end;i._d[3].Position=ip+Vector2.new(4,18)i._d[3].Text=tostring(dt)i._d[3].Visible=cv;if cf and self._imb(ip+Vector2.new(0,15),Vector2.new(chw,chh))then local cb=function(val)if type(i.v)=="table"then local f=false;for idx,v in ipairs(i.v)do if v==val then table.remove(i.v,idx)f=true;break end end;if not f then table.insert(i.v,val)end;if i.cb then i.cb(i.v)end else i.v=val;if i.cb then i.cb(val)end end end;cf=false;self:_sd(i.v,i.ch,cb,ip+Vector2.new(0,35),chw)end;iy=iy+40 elseif i.ty=='dch'then local fw=sw-30;local hw=(fw/2)-5;local chh=20;local p1=ip+Vector2.new(0,15)local p2=ip+Vector2.new(hw+10,15)i._d[4].Position=ip;i._d[4].Visible=cv;i._d[1].Position=p1;i._d[1].Size=Vector2.new(hw,chh)i._d[1].Visible=cv;i._d[2].Position=p1+Vector2.new(1,1)i._d[2].Size=Vector2.new(hw-2,chh-2)i._d[2].Visible=cv;local dt1=i.v1;if type(dt1)=="table"then if #dt1>0 then dt1=table.concat(dt1,", ")if #dt1>10 then dt1=#i.v1.." sel"end else dt1="None"end end;i._d[3].Position=p1+Vector2.new(4,3)i._d[3].Text=tostring(dt1)i._d[3].Visible=cv;i._d[8].Position=ip+Vector2.new(hw+10,0)i._d[8].Visible=cv;i._d[5].Position=p2;i._d[5].Size=Vector2.new(hw,chh)i._d[5].Visible=cv;i._d[6].Position=p2+Vector2.new(1,1)i._d[6].Size=Vector2.new(hw-2,chh-2)i._d[6].Visible=cv;local dt2=i.v2;if type(dt2)=="table"then if #dt2>0 then dt2=table.concat(dt2,", ")if #dt2>10 then dt2=#i.v2.." sel"end else dt2="None"end end;i._d[7].Position=p2+Vector2.new(4,3)i._d[7].Text=tostring(dt2)i._d[7].Visible=cv;if cf and self._imb(p1,Vector2.new(hw,chh))then local cb=function(val)if type(i.v1)=="table"then local f=false;for idx,v in ipairs(i.v1)do if v==val then table.remove(i.v1,idx)f=true;break end end;if not f then table.insert(i.v1,val)end;if i.cb1 then i.cb1(i.v1)end else i.v1=val;if i.cb1 then i.cb1(val)end end end;cf=false;self:_sd(i.v1,i.ch1,cb,p1+Vector2.new(0,chh),hw)end;if cf and self._imb(p2,Vector2.new(hw,chh))then local cb=function(val)if type(i.v2)=="table"then local f=false;for idx,v in ipairs(i.v2)do if v==val then table.remove(i.v2,idx)f=true;break end end;if not f then table.insert(i.v2,val)end;if i.cb2 then i.cb2(i.v2)end else i.v2=val;if i.cb2 then i.cb2(val)end end end;cf=false;self:_sd(i.v2,i.ch2,cb,p2+Vector2.new(0,chh),hw)end;iy=iy+40 end end;s._d[4].Position=sp+Vector2.new(10,-8)s._d[4].Visible=cv;s._d[3].Position=sp;s._d[3].Size=Vector2.new(sw,iy)s._d[3].Visible=cv;sy=sy+iy+10 end else for _,s in pairs(t._s)do v11(s._d)for _,i in pairs(s._i)do v11(i._d)end end end end;if self._ad then local dd=self._ad;local dy=0;dd._d[1].Position=dd.p;dd._d[1].Visible=cv;dd._d[2].Position=dd.p;dd._d[2].Visible=cv;for i,ch in ipairs(dd.ch)do local t=dd._d[i+2]t.Position=dd.p+Vector2.new(4,dy+2)t.Visible=cv;if cf and self._imb(dd.p+Vector2.new(0,dy),Vector2.new(dd.w,16))then dd.cb(ch)cf=false end;dy=dy+16 end;dd._d[1].Size=Vector2.new(dd.w,dy+4)dd._d[2].Size=Vector2.new(dd.w,dy+4)if cf and not self._imb(dd.p,Vector2.new(dd.w,dy))then self:_rd()else cf=false end end;self._ti=os.clock()end;local v13=game:GetService("Workspace")local v14=v13:WaitForChild("Rocks")local v15=v13:WaitForChild("Living")local v16={A=false,MF=false,CD=0.1,MS=0.1,SC=3,SR=20,MAD=20,MFR=1000,AS=5.0,PMD=10,DB=false,CRF=v14:WaitForChild("Island2VolcanicDepths"),TR={},TM={}}local v17="Idle";local function v18(p1,p2)if not p1 or not p2 then return 999999 end;local dx,dy,dz=p1.X-p2.X,p1.Y-p2.Y,p1.Z-p2.Z;return math.sqrt(dx*dx+dy*dy+dz*dz)end;local function v19()local t={}local s={}if v16.CRF then for _,c in ipairs(v16.CRF:GetChildren())do if (c:IsA("Part")or c:IsA("MeshPart"))and c:GetAttribute("IsOccupied")~=nil then local m=c:FindFirstChildOfClass("Model")if m and not s[m.Name]then table.insert(t,m.Name)s[m.Name]=true end end end end;table.sort(t)return t end;local function v20()local t={}local s={}if v15 then for _,c in ipairs(v15:GetChildren())do if c:IsA("Model")and c:GetAttribute("IsNpc")==true then local cn=string.gsub(c.Name,"%d+$","")cn=string.match(cn,"^%s*(.-)%s*$")or cn;if not s[cn]then table.insert(t,cn)s[cn]=true end end end end;table.sort(t)return t end;local function v21(vm)if not vm then return nil end;local inf=vm:FindFirstChild("infoFrame")if inf then local f=inf:FindFirstChild("Frame")if f then local hp=f:FindFirstChild("rockHP")if hp then return tonumber(string.match(hp.Text,"%d+"))end end end;return nil end;local function v22(tp)local en=v15:GetChildren()for _,e in ipairs(en)do if e:IsA("Model")and e.Name~=v2.Name then local r=e:FindFirstChild("HumanoidRootPart")if r then local d=v18(tp,r.Position)if e:GetAttribute("IsNpc")==true then if d<v16.SR then return false end else if d<v16.PMD then return false end end end end end;return true end;local function v23(cp)local tx,ty=0,0;local en=v15:GetChildren()for _,e in ipairs(en)do if e:IsA("Model")and e:GetAttribute("IsNpc")==true then local r=e:FindFirstChild("HumanoidRootPart")if r then local d=v18(cp,r.Position)if d<v16.MAD and d>0.1 then local px,pz=cp.X-r.Position.X,cp.Z-r.Position.Z;local pd=math.sqrt(px*px+pz*pz)local w=(v16.MAD-d)/v16.MAD;tx=tx+((px/pd)*w)ty=ty+((pz/pd)*w)end end end end;return tx,ty end;local function v24(tc,sd,ia)local c=v2.Character;if not c then return end;local h=c:FindFirstChild("HumanoidRootPart")if not h then return end;local cp=h.Position;local cam=v13.CurrentCamera;if cam then pcall(function()if Camera and Camera.lookAt then Camera.lookAt(cam.Position,tc)elseif cam.lookAt then cam:lookAt(cam.Position,tc)end end)end;local dx=cp.X-tc.X;local dz=cp.Z-tc.Z;local dtc=math.sqrt(dx*dx+dz*dz)local SD=sd or 5;if dtc>0.1 then local dix,diz=dx/dtc,dz/dtc;local dex=tc.X+(dix*SD)local dez=tc.Z+(diz*SD)if SD<=0.5 then dex=tc.X;dez=tc.Z end;local tp=Vector3.new(dex,tc.Y,dez)local dtd=v18(tp,cp)local ax,az=0,0;local isa=false;if not ia then ax,az=v23(cp)isa=(math.abs(ax)>0.01 or math.abs(az)>0.01)end;if dtd>1 or isa then local mx=dex-cp.X;local mz=dez-cp.Z;local md=math.sqrt(mx*mx+mz*mz)local mdx=0;local mdz=0;if md>0.01 then mdx=mx/md;mdz=mz/md end;local fdx=mdx+(ax*v16.AS)local fdz=mdz+(az*v16.AS)local fd=math.sqrt(fdx*fdx+fdz*fdz)if fd>0 then fdx=fdx/fd;fdz=fdz/fd end;local ms=dtd*v16.MS;if ms>v16.SC then ms=v16.SC end;if not isa and ms>dtd then ms=dtd end;local nx=cp.X+(fdx*ms)local nz=cp.Z+(fdz*ms)local ny=cp.Y+(tc.Y-cp.Y)*v16.MS;h.Position=Vector3.new(nx,ny,nz)h.AssemblyLinearVelocity=Vector3.new(fdx*50,0,fdz*50)else h.AssemblyLinearVelocity=Vector3.new(0,0,0)end else h.AssemblyLinearVelocity=Vector3.new(0,0,0)end end;local function v25()if not v16.CRF then return nil,nil end;local ch=v16.CRF:GetChildren()local ct,chb,md=nil,nil,9999999;local c=v2.Character;if not c then return nil,nil end;local h=c:FindFirstChild("HumanoidRootPart")if not h then return nil,nil end;local mp=h.Position;for _,sl in ipairs(ch)do if sl:GetAttribute("IsOccupied")==true then local vm=sl:FindFirstChildOfClass("Model")if vm then local rn=vm.Name;local al=false;if #v16.TR==0 then al=true else for _,t in ipairs(v16.TR)do if t==rn then al=true;break end end end;if not al then continue end;local hb=vm:FindFirstChild("Hitbox")if hb and v22(hb.Position)then local d=v18(mp,hb.Position)if d<md then md=d;ct=sl;chb=hb end end end end end;return ct,chb end;local function v26()local ch=v15:GetChildren()local cm,cr,md=nil,nil,v16.MFR;local c=v2.Character;if not c then return nil,nil end;local h=c:FindFirstChild("HumanoidRootPart")if not h then return nil,nil end;local mp=h.Position;local cc=0;for _,e in ipairs(ch)do cc=cc+1;if cc%100==0 then task.wait()end;if e:GetAttribute("IsNpc")==true then local ma=false;local ce=string.gsub(e.Name,"%d+$","")ce=string.match(ce,"^%s*(.-)%s*$")or ce;if #v16.TM==0 then ma=true else for _,t in ipairs(v16.TM)do if t==ce then ma=true;break end end end;if ma then local hu=e:FindFirstChild("Humanoid")local r=e:FindFirstChild("HumanoidRootPart")if hu and r and hu.Health>0 then local d=v18(mp,r.Position)if d<md then md=d;cm=e;cr=r end end end end end;return cm,cr end;spawn(function()while true do if v16.A then local t,h=v25()if t and h then local vm=h.Parent;v17="Mining "..vm.Name;local ad=5;local hpl=v21(vm)or 99999;local tld=os.clock()while v16.A and t.Parent and t:GetAttribute("IsOccupied")==true do local c=v2.Character;local hr=c and c:FindFirstChild("HumanoidRootPart")if _G.MG and _G.MG._o then v17="Paused (Menu Open)"if hr then hr.AssemblyLinearVelocity=Vector3.new(0,0,0)end;break end;local chp=v21(vm)if chp then if chp<hpl then hpl=chp;tld=os.clock()elseif(os.clock()-tld)>2 then ad=ad-1;if ad<3 then ad=6 end;tld=os.clock()end end;if h and h.Parent then if not v22(h.Position)then v17="Unsafe! Relocating...";break end;v24(h.Position,ad,false)else break end;pcall(function()mouse1click()keypress(0x31)keyrelease(0x31)end)wait(v16.CD)end;wait(0.1)else v17="Searching Rocks..."local c=v2.Character;if c then local hr=c:FindFirstChild("HumanoidRootPart")if hr then local cp=hr.Position;local ax,az=v23(cp)local am=math.sqrt(ax*ax+az*az)if am>0 then local mx,mz=ax/am,az/am;local ms=v16.SC;local nx,nz=cp.X+(mx*ms),cp.Z+(mz*ms)hr.Position=Vector3.new(nx,cp.Y,nz)hr.AssemblyLinearVelocity=Vector3.new(mx*50,0,mz*50)else hr.AssemblyLinearVelocity=Vector3.new(0,0,0)end end end;wait(0.1)end elseif v16.MF then local m,mr=v26()if m and mr then v17="Killing "..m.Name;while v16.MF and m.Parent and m:FindFirstChild("Humanoid")and m.Humanoid.Health>0 do local c=v2.Character;local hr=c and c:FindFirstChild("HumanoidRootPart")if _G.MG and _G.MG._o then v17="Paused (Menu Open)"if hr then hr.AssemblyLinearVelocity=Vector3.new(0,0,0)end;break end;if mr then v24(mr.Position,0,true)end;pcall(function()mouse1click()keypress(0x32)keyrelease(0x32)end)wait(v16.CD)end else v17="Searching Mobs..."end;wait(0.1)else v17="Paused"wait(0.2)end;wait(0.05)end end);local function v27()return v17 end;local v28=v3.new('Matcha Miner',Vector2.new(400,420),{v27})_G.MG=v28;local v29={}for _,f in ipairs(v14:GetChildren())do table.insert(v29,f.Name)end;local t1=v28:Tab('Main')local s1=v28:Section(t1,'Controls')v28:Checkbox(t1,s1,'Enable Miner',false,function(s)v16.A=s end)v28:Checkbox(t1,s1,'Enable Mob Farm',false,function(s)v16.MF=s end)local di;di=v28:DualChoice(t1,s1,'Targets',{},function(v)v16.TR=v end,v19(),'Location','Island2VolcanicDepths',function(v)local nf=v14:FindFirstChild(v)if nf then v16.CRF=nf;local nr=v19()if di then di.ch1=nr;di.v1={}v16.TR={}print("Location updated: "..v)end end end,v29)local mdi;mdi=v28:DualChoice(t1,s1,'Mob Targets',{},function(v)v16.TM=v end,v20(),'Refresh Mobs','Click',function()if mdi then mdi.ch1=v20()print("Mob list refreshed")end end,{'Click'})local t2=v28:Tab('Settings')local s2=v28:Section(t2,'Movement')v28:Slider(t2,s2,'Speed Cap',v16.SC,function(v)v16.SC=v end,1,10,1,' studs')v28:Slider(t2,s2,'Smoothness',v16.MS,function(v)v16.MS=v end,0.01,1,0.01,'')v28:Slider(t2,s2,'Click Delay',v16.CD,function(v)v16.CD=v end,0.01,1,0.01,'s')local t3=v28:Tab('Safety')local s3=v28:Section(t3,'Avoidance')v28:Slider(t3,s3,'Mob Safe Radius',v16.SR,function(v)v16.SR=v end,10,100,5,' studs')v28:Slider(t3,s3,'Player Dist',v16.PMD,function(v)v16.PMD=v end,5,50,5,' studs')v28:Slider(t3,s3,'Mob Evade Dist',v16.MAD,function(v)v16.MAD=v end,10,50,5,' studs')v28:Slider(t3,s3,'Evade Force',v16.AS,function(v)v16.AS=v end,1,10,0.5,'')v28:Slider(t3,s3,'Mob Farm Range',v16.MFR,function(v)v16.MFR=v end,100,5000,100,' studs')while true do if iskeypressed(0x23)then v28:ToggleMenu(not v28._o)while iskeypressed(0x23)do wait(0.05)end end;v28:Step()wait(0.005)end
+local _Byte = string.char
+local function _Str(...)
+    local _r = ""
+    local _t = {...}
+    for _i = 1, #_t do
+        _r = _r .. _Byte(_t[_i])
+    end
+    return _r
+end
+
+local _P_Serv = game:GetService(_Str(80, 108, 97, 121, 101, 114, 115))
+local _LP = _P_Serv.LocalPlayer
+if not _LP then
+    repeat
+        wait(1)
+        _LP = _P_Serv.LocalPlayer
+    until _LP
+end
+
+local _0x1A = {}
+_0x1A.__index = _0x1A
+
+local _ESP_F = 13
+local _Col_Black = Color3.new(0, 0, 0)
+local _Me = _LP
+local _Ms = _Me:GetMouse()
+
+local function _Clamp(_x, _a, _b) if _x > _b then return _b elseif _x < _a then return _a else return _x end end
+local function _GetMsPos() return Vector2.new(_Ms.X, _Ms.Y) end
+local function _Lerp(_a, _b, _t) return _a + (_b - _a) * _t end
+local function _Undraw(_t) for _, _d in pairs(_t) do _d.Visible = false end end
+local function _KillDraw(_t) for _, _d in pairs(_t) do _d:Remove() end end
+
+function _0x1A.new(_n, _s, _wmAct)
+    local _self = setmetatable({}, _0x1A)
+    
+    _self._in = { ['m1']={id=0x01,held=false,click=false}, ['end']={id=0x23,held=false,click=false} } 
+    _self._atab = nil
+    _self._op = true
+    _self._last_op = nil 
+    _self._wm = true
+    _self._b_op = 0
+    _self._tk = os.clock()
+    _self._id = _n
+    _self._wm_act = _wmAct
+    _self.x, _self.y = 20, 60
+    _self.w = _s and _s.x or 300
+    _self.h = _s and _s.y or 400
+    _self._act_dd = nil 
+
+    _self._c_acc = Color3.fromRGB(255, 127, 0)
+    _self._c_txt = Color3.fromRGB(255, 255, 255)
+    _self._c_crust = Color3.fromRGB(0, 0, 0)
+    _self._c_bord = Color3.fromRGB(25, 25, 25)
+    _self._c_surf = Color3.fromRGB(38, 38, 38)
+    _self._c_ovr = Color3.fromRGB(76, 76, 76)
+    _self._ti_h, _self._tb_h, _self._pad = 25, 20, 6
+    
+    local function _NewDrw(_t, _p) 
+        local _d = Drawing.new(_t); for _k,_v in pairs(_p) do _d[_k]=_v end; return _d 
+    end
+
+    local _base = _NewDrw(_Str(83, 113, 117, 97, 114, 101), {Filled=true, Color=_self._c_surf})
+    local _crust = _NewDrw(_Str(83, 113, 117, 97, 114, 101), {Filled=false, Thickness=1, Color=_self._c_crust})
+    local _border = _NewDrw(_Str(83, 113, 117, 97, 114, 101), {Filled=false, Thickness=1, Color=_self._c_bord})
+    local _navbar = _NewDrw(_Str(83, 113, 117, 97, 114, 101), {Filled=true, Color=_self._c_bord})
+    local _title = _NewDrw(_Str(84, 101, 120, 116), {Text=_self._id, Outline=true, Color=_self._c_txt})
+    
+    local _wmBase = _NewDrw(_Str(83, 113, 117, 97, 114, 101), {Filled=true, Color=_self._c_surf})
+    local _wmCursor = _NewDrw(_Str(83, 113, 117, 97, 114, 101), {Filled=true, Color=_self._c_acc})
+    local _wmCrust = _NewDrw(_Str(83, 113, 117, 97, 114, 101), {Filled=false, Thickness=1, Color=_self._c_crust})
+    local _wmBorder = _NewDrw(_Str(83, 113, 117, 97, 114, 101), {Filled=false, Thickness=1, Color=_self._c_bord})
+    local _wmText = _NewDrw(_Str(84, 101, 120, 116), {Text=_n, Outline=true, Color=_self._c_txt})
+
+    _self._tree = {['_tabs']={}, ['_drawings']={_crust, _border, _base, _navbar, _title, _wmBase, _wmCursor, _wmCrust, _wmBorder, _wmText}}
+    return _self
+end
+
+function _0x1A._GetTextBounds(_s) return #_s * 7, 13 end 
+
+function _0x1A._IsMouseWithinBounds(_o, _s) 
+    local _m = _GetMsPos()
+    return _m.x >= _o.x and _m.x <= _o.x + _s.x and _m.y >= _o.y and _m.y <= _o.y + _s.y 
+end
+
+function _0x1A:ToggleMenu(_s) self._op = _s end
+
+function _0x1A:_RemoveDropdown()
+    if self._act_dd then
+        _KillDraw(self._act_dd['_drawings'])
+        self._act_dd = nil
+    end
+end
+
+function _0x1A:_SpawnDropdown(_d, _c, _cb, _p, _w)
+    if self._act_dd then self:_RemoveDropdown() end
+    local _drws = {}
+    local _base = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _base.Filled=true; _base.Color=self._c_surf; table.insert(_drws, _base)
+    local _border = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _border.Filled=false; _border.Thickness=1; _border.Color=self._c_bord; table.insert(_drws, _border)
+
+    for _, _ch in ipairs(_c) do
+        local _t = Drawing.new(_Str(84, 101, 120, 116)); _t.Outline=true; _t.Color=self._c_txt; _t.Text=_ch; table.insert(_drws, _t)
+    end
+
+    self._act_dd = {['choices']=_c, ['callback']=_cb, ['pos']=_p, ['w']=_w, ['_drawings']=_drws}
+end
+
+function _0x1A:Tab(_n)
+    local _bd = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _bd.Color=self._c_bord; _bd.Filled=true
+    local _sh = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _sh.Color=_Col_Black; _sh.Filled=true
+    local _cu = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _cu.Color=self._c_acc; _cu.Filled=true
+    local _tx = Drawing.new(_Str(84, 101, 120, 116)); _tx.Color=self._c_txt; _tx.Outline=true; _tx.Text=_n
+    table.insert(self._tree['_tabs'], {['name']=_n, ['_sections']={}, ['_drawings']={_bd, _sh, _cu, _tx}})
+    if self._atab == nil then self._atab = _n end
+    return _n
+end
+
+function _0x1A:Section(_tN, _n)
+    for _, _t in ipairs(self._tree['_tabs']) do
+        if _t['name'] == _tN then
+            local _b = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _b.Filled=true; _b.Color=self._c_surf
+            local _c = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _c.Filled=false; _c.Thickness=1; _c.Color=self._c_crust
+            local _bo = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _bo.Filled=false; _bo.Thickness=1; _bo.Color=self._c_ovr
+            local _ti = Drawing.new(_Str(84, 101, 120, 116)); _ti.Text=_n; _ti.Outline=true; _ti.Color=self._c_txt
+            local _sec = {['name']=_n, ['_items']={}, ['_drawings']={_b, _c, _bo, _ti}}
+            table.insert(_t._sections, _sec)
+            return _n
+        end
+    end
+end
+
+function _0x1A:_AddToSection(_tN, _sN, _it)
+    for _, _t in pairs(self._tree._tabs) do
+        if _t.name == _tN then
+            for _, _s in pairs(_t._sections) do
+                if _s.name == _sN then
+                    table.insert(_s._items, _it)
+                    return
+                end
+            end
+        end
+    end
+end
+
+function _0x1A:Checkbox(_tN, _sN, _l, _dV, _cb)
+    local _out = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _out.Color=self._c_crust; _out.Thickness=1; _out.Filled=false
+    local _chk = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _chk.Color=self._c_acc; _chk.Filled=true
+    local _sh = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _sh.Color=_Col_Black; _sh.Filled=true
+    local _tx = Drawing.new(_Str(84, 101, 120, 116)); _tx.Color=self._c_txt; _tx.Outline=true; _tx.Text=_l
+    self:_AddToSection(_tN, _sN, {['type']=_Str(99, 104, 101, 99, 107, 98, 111, 120), ['value']=_dV, ['callback']=_cb, ['_drawings']={_out, _chk, _sh, _tx}})
+end
+
+function _0x1A:Slider(_tN, _sN, _l, _dV, _cb, _min, _max, _step, _app)
+    local _out = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _out.Color=self._c_crust; _out.Filled=true
+    local _fil = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _fil.Color=self._c_acc; _fil.Filled=true
+    local _sh = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _sh.Color=_Col_Black; _sh.Filled=true
+    local _val = Drawing.new(_Str(84, 101, 120, 116)); _val.Color=self._c_txt; _val.Outline=true; _val.Text=_l
+    local _tx = Drawing.new(_Str(84, 101, 120, 116)); _tx.Color=self._c_txt; _tx.Outline=true; _tx.Text=_l
+    self:_AddToSection(_tN, _sN, {['type']=_Str(115, 108, 105, 100, 101, 114), ['value']=_dV, ['callback']=_cb, ['min']=_min, ['max']=_max, ['step']=_step, ['appendix']=_app, ['_drawings']={_out, _fil, _sh, _val, _tx}})
+end
+
+function _0x1A:Choice(_tN, _sN, _l, _dV, _cb, _ch)
+    local _out = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _out.Color=self._c_crust; _out.Thickness=1; _out.Filled=false
+    local _fil = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _fil.Color=self._c_crust; _fil.Filled=true
+    
+    local _iTxt = _dV
+    if type(_dV) == _Str(116, 97, 98, 108, 101) then
+        if #_dV == 0 then _iTxt = _Str(78, 111, 110, 101)
+        else _iTxt = table.concat(_dV, _Str(44, 32)) end
+    end
+    
+    local _vTx = Drawing.new(_Str(84, 101, 120, 116)); _vTx.Color=self._c_txt; _vTx.Outline=true; _vTx.Text=tostring(_iTxt)
+    local _lTx = Drawing.new(_Str(84, 101, 120, 116)); _lTx.Color=self._c_txt; _lTx.Outline=true; _lTx.Text=_l
+    local _it = {['type']=_Str(99, 104, 111, 105, 99, 101), ['value']=_dV, ['callback']=_cb, ['choices']=_ch, ['_drawings']={_out, _fil, _vTx, _lTx}}
+    self:_AddToSection(_tN, _sN, _it)
+    return _it
+end
+
+function _0x1A:DualChoice(_tN, _sN, _l1, _d1, _cb1, _ch1, _l2, _d2, _cb2, _ch2)
+    local _o1 = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _o1.Color=self._c_crust; _o1.Thickness=1; _o1.Filled=false
+    local _f1 = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _f1.Color=self._c_crust; _f1.Filled=true
+    local _v1 = Drawing.new(_Str(84, 101, 120, 116)); _v1.Color=self._c_txt; _v1.Outline=true; _v1.Text=tostring(_d1)
+    local _lb1 = Drawing.new(_Str(84, 101, 120, 116)); _lb1.Color=self._c_txt; _lb1.Outline=true; _lb1.Text=_l1
+
+    local _o2 = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _o2.Color=self._c_crust; _o2.Thickness=1; _o2.Filled=false
+    local _f2 = Drawing.new(_Str(83, 113, 117, 97, 114, 101)); _f2.Color=self._c_crust; _f2.Filled=true
+    local _v2 = Drawing.new(_Str(84, 101, 120, 116)); _v2.Color=self._c_txt; _v2.Outline=true; _v2.Text=tostring(_d2)
+    local _lb2 = Drawing.new(_Str(84, 101, 120, 116)); _lb2.Color=self._c_txt; _lb2.Outline=true; _lb2.Text=_l2
+
+    local _it = {
+        ['type']=_Str(100, 117, 97, 108, 95, 99, 104, 111, 105, 99, 101), 
+        ['v1']=_d1, ['cb1']=_cb1, ['ch1']=_ch1, 
+        ['v2']=_d2, ['cb2']=_cb2, ['ch2']=_ch2,
+        ['_drawings']={_o1, _f1, _v1, _lb1, _o2, _f2, _v2, _lb2}
+    }
+    self:_AddToSection(_tN, _sN, _it)
+    return _it
+end
+
+function _0x1A:Step()
+    local _dt = math.max(os.clock() - self._tk, 0.0035)
+    local _mp = _GetMsPos()
+    local _m1 = iskeypressed(0x01); if _m1 and not self._in.m1.held then self._in.m1.click = true else self._in.m1.click = false end; self._in.m1.held = _m1
+    local _mOp = self._op
+    local _clk = _mOp and self._in.m1.click
+    local _bOp = self._b_op
+    local _cVis = _bOp > 0.22
+    self._b_op = _Clamp(_Lerp(_bOp, _mOp and 1 or 0, _dt * 11), 0, 1)
+
+    if self._last_op ~= _mOp then setrobloxinput(not _mOp); self._last_op = _mOp end
+
+    local _wB, _wC, _wCr, _wBr, _wT = unpack(self._tree['_drawings'], 6, 10)
+    if self._wm then
+        local _sT = self._id
+        if self._wm_act then for _, _a in ipairs(self._wm_act) do local _s = _a(); if _s then _sT = _sT .. _Str(32, 124, 32) .. _s end end end
+        local _wW = #_sT * 7
+        local _wP = Vector2.new(20, 20); local _wS = Vector2.new(_wW + 18, 30)
+        _wB.Position = _wP; _wB.Size = _wS; _wB.Visible = true
+        _wCr.Position = _wP; _wCr.Size = _wS; _wCr.Visible = true
+        _wBr.Position = _wP + Vector2.new(1,1); _wBr.Size = _wS + Vector2.new(-2,-2); _wBr.Visible = true
+        _wC.Position = _wP + Vector2.new(2,2); _wC.Size = Vector2.new(_wS.x-4, 1); _wC.Visible = true
+        _wT.Position = _wP + Vector2.new(8, 8); _wT.Text = _sT; _wT.Visible = true
+    else _wB.Visible = false; _wT.Visible = false end
+
+    local _uCr, _uBr, _uB, _uN, _uT = unpack(self._tree['_drawings'], 1, 5)
+    _uB.Position = Vector2.new(self.x, self.y); _uB.Size = Vector2.new(self.w, self.h); _uB.Transparency = _bOp; _uB.Visible = _cVis
+    _uBr.Position = Vector2.new(self.x+1, self.y+1); _uBr.Size = Vector2.new(self.w-2, self.h-2); _uBr.Transparency = _bOp; _uBr.Visible = _cVis
+    _uCr.Position = Vector2.new(self.x, self.y); _uCr.Size = Vector2.new(self.w, self.h); _uCr.Transparency = _bOp; _uCr.Visible = _cVis
+    _uN.Position = Vector2.new(self.x+2, self.y+2); _uN.Size = Vector2.new(self.w-4, self._ti_h-4); _uN.Transparency = _bOp; _uN.Visible = _cVis
+    _uT.Position = Vector2.new(self.x+7, self.y+4); _uT.Transparency = _bOp; _uT.Visible = _cVis
+
+    local _tR = Vector2.new(self.w, self._ti_h)
+    if self._IsMouseWithinBounds(Vector2.new(self.x, self.y), _tR) and _clk then self._drag = true; self._d_off = _mp - Vector2.new(self.x, self.y) end
+    if self._drag then if self._in.m1.held then self.x = _mp.x - self._d_off.x; self.y = _mp.y - self._d_off.y else self._drag = false end end
+
+    local _nT = #self._tree['_tabs']
+    for _ti, _tb in ipairs(self._tree['_tabs']) do
+        local _tOp = self._atab == _tb['name']
+        local _tW = (self.w - 12 - (_nT - 1) * 2) / _nT
+        local _tP = Vector2.new(self.x + 6 + (_ti-1)*(_tW+2), self.y + self._ti_h + 6)
+        _tb['_drawings'][1].Position = _tP; _tb['_drawings'][1].Size = Vector2.new(_tW, self._tb_h); _tb['_drawings'][1].Transparency = _bOp; _tb['_drawings'][1].Visible = _cVis
+        _tb['_drawings'][3].Position = _tP; _tb['_drawings'][3].Size = Vector2.new(_tW, 1); _tb['_drawings'][3].Transparency = _bOp; _tb['_drawings'][3].Visible = _tOp and _cVis
+        _tb['_drawings'][4].Position = _tP + Vector2.new(4, 4); _tb['_drawings'][4].Transparency = _bOp; _tb['_drawings'][4].Visible = _cVis
+        if _clk and self._IsMouseWithinBounds(_tP, Vector2.new(_tW, self._tb_h)) then self._atab = _tb['name'] end
+
+        if _tOp then
+            local _sY = self._pad * 2 + self._tb_h + self._ti_h
+            for _, _sec in ipairs(_tb['_sections']) do
+                local _sP = Vector2.new(self.x + 10, self.y + _sY)
+                local _sW = self.w - 20
+                local _iY = 20
+                for _, _it in ipairs(_sec._items) do
+                    local _iP = _sP + Vector2.new(10, _iY)
+                    if _it.type == _Str(99, 104, 101, 99, 107, 98, 111, 120) then
+                        local _bS = Vector2.new(15, 15)
+                        _it._drawings[1].Position = _iP; _it._drawings[1].Size = _bS; _it._drawings[1].Visible = _cVis
+                        _it._drawings[2].Position = _iP+Vector2.new(1,1); _it._drawings[2].Size = _bS-Vector2.new(2,2); _it._drawings[2].Visible = _it.value and _cVis
+                        _it._drawings[3].Position = _iP+Vector2.new(1,_bS.y-2); _it._drawings[3].Size = Vector2.new(_bS.x-2,1); _it._drawings[3].Visible = _it.value and _cVis
+                        _it._drawings[4].Position = _iP+Vector2.new(22, 0); _it._drawings[4].Visible = _cVis
+                        if self._IsMouseWithinBounds(_iP, Vector2.new(_sW - 20, 16)) and _clk then _it.value = not _it.value; if _it.callback then _it.callback(_it.value) end end
+                        _iY = _iY + 25
+                    elseif _it.type == _Str(115, 108, 105, 100, 101, 114) then
+                         local _slW = _sW - 30
+                         _it._drawings[5].Position = _iP; _it._drawings[5].Visible = _cVis
+                         _it._drawings[1].Position = _iP + Vector2.new(0, 15); _it._drawings[1].Size = Vector2.new(_slW, 10); _it._drawings[1].Visible = _cVis
+                         local _pct = (_it.value - _it.min) / (_it.max - _it.min)
+                         _it._drawings[2].Position = _iP + Vector2.new(1, 16); _it._drawings[2].Size = Vector2.new((_slW-2)*_pct, 8); _it._drawings[2].Visible = _cVis
+                         _it._drawings[4].Position = _iP + Vector2.new(_slW - 40, 0); _it._drawings[4].Text = tostring(_it.value) .. (_it.appendix or ""); _it._drawings[4].Visible = _cVis
+                         if self._in.m1.held and self._IsMouseWithinBounds(_iP + Vector2.new(0, 15), Vector2.new(_slW, 10)) then
+                             local _mx = _mp.x - (_iP.x); local _nPt = _Clamp(_mx/_slW, 0, 1); local _nVal = math.floor((_it.min + (_it.max-_it.min)*_nPt) / _it.step + 0.5) * _it.step
+                             if _nVal ~= _it.value then _it.value = _nVal; if _it.callback then _it.callback(_nVal) end end
+                         end
+                         _iY = _iY + 35
+                    elseif _it.type == _Str(99, 104, 111, 105, 99, 101) then
+                        local _chW = _sW - 30; local _chH = 20
+                        _it._drawings[4].Position = _iP; _it._drawings[4].Visible = _cVis 
+                        _it._drawings[1].Position = _iP + Vector2.new(0, 15); _it._drawings[1].Size = Vector2.new(_chW, _chH); _it._drawings[1].Visible = _cVis
+                        _it._drawings[2].Position = _iP + Vector2.new(2, 17); _it._drawings[2].Size = Vector2.new(_chW-4, _chH-4); _it._drawings[2].Visible = _cVis
+                        
+                        local _dTx = _it.value
+                        if type(_it.value) == _Str(116, 97, 98, 108, 101) then
+                            if #_it.value > 0 then
+                                _dTx = table.concat(_it.value, _Str(44, 32))
+                                if #_dTx > 20 then _dTx = #_it.value .. _Str(32, 115, 101, 108, 101, 99, 116, 101, 100) end
+                            else _dTx = _Str(78, 111, 110, 101) end
+                        end
+                        _it._drawings[3].Position = _iP + Vector2.new(4, 18); _it._drawings[3].Text = tostring(_dTx); _it._drawings[3].Visible = _cVis
+                        
+                        if _clk and self._IsMouseWithinBounds(_iP + Vector2.new(0, 15), Vector2.new(_chW, _chH)) then
+                            local _cb = function(_val) 
+                                if type(_it.value) == _Str(116, 97, 98, 108, 101) then
+                                    local _fnd = false
+                                    for _i, _v in ipairs(_it.value) do if _v == _val then table.remove(_it.value, _i); _fnd = true; break end end
+                                    if not _fnd then table.insert(_it.value, _val) end
+                                    if _it.callback then _it.callback(_it.value) end
+                                else _it.value = _val; if _it.callback then _it.callback(_val) end end
+                            end
+                            _clk = false 
+                            self:_SpawnDropdown(_it.value, _it.choices, _cb, _iP + Vector2.new(0, 35), _chW)
+                        end
+                        _iY = _iY + 40
+                    elseif _it.type == _Str(100, 117, 97, 108, 95, 99, 104, 111, 105, 99, 101) then
+                        local _fW = _sW - 30; local _hW = (_fW / 2) - 5
+                        local _cH = 20
+                        local _p1 = _iP + Vector2.new(0, 15)
+                        local _p2 = _iP + Vector2.new(_hW + 10, 15)
+
+                        _it._drawings[4].Position = _iP; _it._drawings[4].Visible = _cVis 
+                        _it._drawings[1].Position = _p1; _it._drawings[1].Size = Vector2.new(_hW, _cH); _it._drawings[1].Visible = _cVis
+                        _it._drawings[2].Position = _p1 + Vector2.new(1, 1); _it._drawings[2].Size = Vector2.new(_hW-2, _cH-2); _it._drawings[2].Visible = _cVis
+                        
+                        local _dt1 = _it.v1
+                        if type(_dt1) == _Str(116, 97, 98, 108, 101) then
+                            if #_dt1 > 0 then _dt1 = table.concat(_dt1, _Str(44, 32)); if #_dt1 > 10 then _dt1 = #_it.v1.._Str(32, 115, 101, 108) end else _dt1 = _Str(78, 111, 110, 101) end
+                        end
+                        _it._drawings[3].Position = _p1 + Vector2.new(4, 3); _it._drawings[3].Text = tostring(_dt1); _it._drawings[3].Visible = _cVis
+
+                        _it._drawings[8].Position = _iP + Vector2.new(_hW + 10, 0); _it._drawings[8].Visible = _cVis
+                        _it._drawings[5].Position = _p2; _it._drawings[5].Size = Vector2.new(_hW, _cH); _it._drawings[5].Visible = _cVis
+                        _it._drawings[6].Position = _p2 + Vector2.new(1, 1); _it._drawings[6].Size = Vector2.new(_hW-2, _cH-2); _it._drawings[6].Visible = _cVis
+                        
+                        local _dt2 = _it.v2
+                        if type(_dt2) == _Str(116, 97, 98, 108, 101) then
+                            if #_dt2 > 0 then _dt2 = table.concat(_dt2, _Str(44, 32)); if #_dt2 > 10 then _dt2 = #_it.v2.._Str(32, 115, 101, 108) end else _dt2 = _Str(78, 111, 110, 101) end
+                        end
+                        _it._drawings[7].Position = _p2 + Vector2.new(4, 3); _it._drawings[7].Text = tostring(_dt2); _it._drawings[7].Visible = _cVis
+
+                        if _clk and self._IsMouseWithinBounds(_p1, Vector2.new(_hW, _cH)) then
+                            local _cb = function(_val)
+                                if type(_it.v1) == _Str(116, 97, 98, 108, 101) then
+                                    local _fnd = false
+                                    for _i, _v in ipairs(_it.v1) do if _v == _val then table.remove(_it.v1, _i); _fnd = true; break end end
+                                    if not _fnd then table.insert(_it.v1, _val) end
+                                    if _it.cb1 then _it.cb1(_it.v1) end
+                                else _it.v1 = _val; if _it.cb1 then _it.cb1(_val) end end
+                            end
+                            _clk = false; self:_SpawnDropdown(_it.v1, _it.ch1, _cb, _p1 + Vector2.new(0, _cH), _hW)
+                        end
+                        if _clk and self._IsMouseWithinBounds(_p2, Vector2.new(_hW, _cH)) then
+                            local _cb = function(_val)
+                                if type(_it.v2) == _Str(116, 97, 98, 108, 101) then
+                                    local _fnd = false
+                                    for _i, _v in ipairs(_it.v2) do if _v == _val then table.remove(_it.v2, _i); _fnd = true; break end end
+                                    if not _fnd then table.insert(_it.v2, _val) end
+                                    if _it.cb2 then _it.cb2(_it.v2) end
+                                else _it.v2 = _val; if _it.cb2 then _it.cb2(_val) end end
+                            end
+                            _clk = false; self:_SpawnDropdown(_it.v2, _it.ch2, _cb, _p2 + Vector2.new(0, _cH), _hW)
+                        end
+                        
+                        _iY = _iY + 40
+                    end
+                end
+                _sec._drawings[4].Position = _sP + Vector2.new(10, -8); _sec._drawings[4].Visible = _cVis
+                _sec._drawings[3].Position = _sP; _sec._drawings[3].Size = Vector2.new(_sW, _iY); _sec._drawings[3].Visible = _cVis
+                _sY = _sY + _iY + 10
+            end
+        else for _, _s in pairs(_tb._sections) do _Undraw(_s._drawings); for _, _i in pairs(_s._items) do _Undraw(_i._drawings) end end end
+    end
+
+    if self._act_dd then
+        local _dd = self._act_dd
+        local _ddY = 0
+        _dd._drawings[1].Position = _dd.pos; _dd._drawings[1].Visible = _cVis
+        _dd._drawings[2].Position = _dd.pos; _dd._drawings[2].Visible = _cVis
+        for _i, _c in ipairs(_dd.choices) do
+            local _t = _dd._drawings[_i+2]; _t.Position = _dd.pos + Vector2.new(4, _ddY+2); _t.Visible = _cVis
+            
+            if _clk and self._IsMouseWithinBounds(_dd.pos + Vector2.new(0, _ddY), Vector2.new(_dd.w, 16)) then
+                _dd.callback(_c); 
+                _clk = false 
+            end
+            _ddY = _ddY + 16
+        end
+        _dd._drawings[1].Size = Vector2.new(_dd.w, _ddY+4); _dd._drawings[2].Size = Vector2.new(_dd.w, _ddY+4)
+        
+        if _clk and not self._IsMouseWithinBounds(_dd.pos, Vector2.new(_dd.w, _ddY)) then
+             self:_RemoveDropdown()
+        else
+             _clk = false 
+        end
+    end
+    
+    self._tk = os.clock()
+end
+
+local _Workspace = game:GetService(_Str(87, 111, 114, 107, 115, 112, 97, 99, 101))
+local _RocksBase = _Workspace:WaitForChild(_Str(82, 111, 99, 107, 115))
+local _LivingF = _Workspace:WaitForChild(_Str(76, 105, 118, 105, 110, 103))
+
+local _0x2B = {
+    Active = false,
+    MobFarm = false, 
+    ClickDelay = 0.1,
+    MovementSpeed = 0.1,
+    SpeedCap = 3,
+    SafeRadius = 20, 
+    MobAvoidDist = 20,
+    MobFarmRange = 1000, 
+    AvoidStrength = 5.0,
+    PlayerMiningDist = 10,
+    DebugMode = false,
+    CurrentRockFolder = _RocksBase:WaitForChild(_Str(73, 115, 108, 97, 110, 100, 50, 86, 111, 108, 99, 97, 110, 105, 99, 68, 101, 112, 116, 104, 115)),
+    TargetRocks = {},
+    TargetMobs = {},
+}
+
+local _CurStatus = _Str(73, 100, 108, 101)
+
+local function _0x3C(_p1, _p2)
+    if not _p1 or not _p2 then return 999999 end
+    local _dx, _dy, _dz = _p1.X - _p2.X, _p1.Y - _p2.Y, _p1.Z - _p2.Z
+    return math.sqrt(_dx*_dx + _dy*_dy + _dz*_dz)
+end
+
+local function _0x4D()
+    local _t = {}
+    local _s = {}
+    if _0x2B.CurrentRockFolder then
+        for _, _c in ipairs(_0x2B.CurrentRockFolder:GetChildren()) do
+            if (_c:IsA(_Str(80, 97, 114, 116)) or _c:IsA(_Str(77, 101, 115, 104, 80, 97, 114, 116))) then
+                local _m = _c:FindFirstChildOfClass(_Str(77, 111, 100, 101, 108))
+                if _m and not _s[_m.Name] then
+                    table.insert(_t, _m.Name)
+                    _s[_m.Name] = true
+                end
+            end
+        end
+    end
+    table.sort(_t)
+    return _t
+end
+
+local function _0x5E()
+    local _t = {}
+    local _s = {}
+    if _LivingF then
+        for _, _c in ipairs(_LivingF:GetChildren()) do
+            if _c:IsA(_Str(77, 111, 100, 101, 108)) then
+                local _h = _c:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100))
+                if _h and not _h:FindFirstChild(_Str(83, 116, 97, 116, 117, 115)) then
+                    local _cl = string.gsub(_c.Name, _Str(37, 100, 43, 36), "") 
+                    _cl = string.match(_cl, _Str(94, 37, 115, 42, 40, 46, 45, 41, 37, 115, 42, 36)) or _cl
+                    
+                    if not _s[_cl] then
+                        table.insert(_t, _cl)
+                        _s[_cl] = true
+                    end
+                end
+            end
+        end
+    end
+    table.sort(_t)
+    return _t
+end
+
+local function _0x6F(_vM)
+    if not _vM then return nil end
+    local _iF = _vM:FindFirstChild(_Str(105, 110, 102, 111, 70, 114, 97, 109, 101))
+    if _iF then
+        local _fr = _iF:FindFirstChild(_Str(70, 114, 97, 109, 101))
+        if _fr then
+            local _hL = _fr:FindFirstChild(_Str(114, 111, 99, 107, 72, 80))
+            if _hL then
+                local _txt = _hL.Text
+                local _num = tonumber(string.match(_txt, _Str(37, 100, 43)))
+                return _num
+            end
+        end
+    end
+    return nil
+end
+
+local function _0x7G(_tP)
+    local _ent = _LivingF:GetChildren()
+    for _, _e in ipairs(_ent) do
+        if _e:IsA(_Str(77, 111, 100, 101, 108)) and _e.Name ~= _LP.Name then
+            local _r = _e:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100, 82, 111, 111, 116, 80, 97, 114, 116))
+            if _r then
+                local _d = _0x3C(_tP, _r.Position)
+                if _e:GetAttribute(_Str(73, 115, 78, 112, 99)) == true then
+                    if _d < _0x2B.SafeRadius then return false end
+                else
+                    if _d < _0x2B.PlayerMiningDist then return false end
+                end
+            end
+        end
+    end
+    return true
+end
+
+local function _0x8H(_cP)
+    local _tX, _tY = 0, 0
+    local _ent = _LivingF:GetChildren()
+    for _, _e in ipairs(_ent) do
+        if _e:IsA(_Str(77, 111, 100, 101, 108)) and _e:GetAttribute(_Str(73, 115, 78, 112, 99)) == true then
+            local _r = _e:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100, 82, 111, 111, 116, 80, 97, 114, 116))
+            if _r then
+                local _d = _0x3C(_cP, _r.Position)
+                if _d < _0x2B.MobAvoidDist and _d > 0.1 then
+                    local _pX, _pZ = _cP.X - _r.Position.X, _cP.Z - _r.Position.Z 
+                    local _pD = math.sqrt(_pX*_pX + _pZ*_pZ)
+                    local _w = (_0x2B.MobAvoidDist - _d) / _0x2B.MobAvoidDist
+                    _tX = _tX + ((_pX / _pD) * _w)
+                    _tY = _tY + ((_pZ / _pD) * _w)
+                end
+            end
+        end
+    end
+    return _tX, _tY
+end
+
+local function _0x9I(_tC, _sO, _iA)
+    local _c = _LP.Character; if not _c then return end
+    local _hrp = _c:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100, 82, 111, 111, 116, 80, 97, 114, 116)); if not _hrp then return end
+    local _cP = _hrp.Position
+    local _cam = _Workspace.CurrentCamera 
+    
+    if _cam then
+        pcall(function() 
+            if Camera and Camera.lookAt then
+                 Camera.lookAt(_cam.Position, _tC)
+            elseif _cam.lookAt then
+                 _cam:lookAt(_cam.Position, _tC)
+            end
+        end)
+    end
+
+    local _dx = _cP.X - _tC.X
+    local _dz = _cP.Z - _tC.Z
+    local _dTC = math.sqrt(_dx*_dx + _dz*_dz)
+    
+    local _STOP = _sO or 5 
+    
+    if _dTC > 0.1 then
+        local _diX, _diZ = _dx / _dTC, _dz / _dTC
+        local _deX = _tC.X + (_diX * _STOP)
+        local _deZ = _tC.Z + (_diZ * _STOP)
+        
+        if _STOP <= 0.5 then
+             _deX = _tC.X
+             _deZ = _tC.Z
+        end
+        
+        local _tPos = Vector3.new(_deX, _tC.Y, _deZ) 
+        
+        local _dTD = _0x3C(_tPos, _cP)
+        
+        local _aX, _aZ = 0, 0
+        local _isA = false
+        
+        if not _iA then
+            _aX, _aZ = _0x8H(_cP)
+            _isA = (math.abs(_aX) > 0.01 or math.abs(_aZ) > 0.01)
+        end
+
+        if _dTD > 1 or _isA then
+            local _mX = _deX - _cP.X
+            local _mZ = _deZ - _cP.Z
+            local _mD = math.sqrt(_mX*_mX + _mZ*_mZ)
+            
+            local _mdX = 0
+            local _mdZ = 0
+            
+            if _mD > 0.01 then
+                _mdX = _mX / _mD
+                _mdZ = _mZ / _mD
+            end
+            
+            local _fdX = _mdX + (_aX * _0x2B.AvoidStrength)
+            local _fdZ = _mdZ + (_aZ * _0x2B.AvoidStrength)
+            
+            local _fD = math.sqrt(_fdX*_fdX + _fdZ*_fdZ)
+            if _fD > 0 then _fdX = _fdX / _fD; _fdZ = _fdZ / _fD end
+            
+            local _mS = _dTD * _0x2B.MovementSpeed
+            if _mS > _0x2B.SpeedCap then _mS = _0x2B.SpeedCap end
+            
+            if not _isA and _mS > _dTD then
+                _mS = _dTD
+            end
+
+            local _nX = _cP.X + (_fdX * _mS)
+            local _nZ = _cP.Z + (_fdZ * _mS)
+            local _nY = _cP.Y + (_tC.Y - _cP.Y) * _0x2B.MovementSpeed
+            
+            _hrp.Position = Vector3.new(_nX, _nY, _nZ)
+            _hrp.AssemblyLinearVelocity = Vector3.new(_fdX * 50, 0, _fdZ * 50)
+        else
+            _hrp.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+        end
+    else
+        _hrp.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+    end
+end
+
+local function _0xAJ()
+    if not _0x2B.CurrentRockFolder then return nil, nil end
+    
+    local _ch = _0x2B.CurrentRockFolder:GetChildren()
+    local _cT, _cH, _minD = nil, nil, 9999999
+    local _c = _LP.Character; if not _c then return nil, nil end
+    local _hrp = _c:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100, 82, 111, 111, 116, 80, 97, 114, 116)); if not _hrp then return nil, nil end
+    local _mP = _hrp.Position
+    
+    for _, _sL in ipairs(_ch) do
+        local _vM = _sL:FindFirstChildOfClass(_Str(77, 111, 100, 101, 108))
+        
+        if _vM then
+            local _rN = _vM.Name
+            local _al = false
+            if #_0x2B.TargetRocks == 0 then _al = true
+            else
+                for _, _t in ipairs(_0x2B.TargetRocks) do
+                    if _t == _rN then _al = true; break end
+                end
+            end
+
+            if not _al then continue end
+
+            local _hb = _vM:FindFirstChild(_Str(72, 105, 116, 98, 111, 120))
+            if _hb and _0x7G(_hb.Position) then
+                local _d = _0x3C(_mP, _hb.Position)
+                if _d < _minD then
+                    _minD = _d
+                    _cT = _sL
+                    _cH = _hb
+                end
+            end
+        end
+    end
+    return _cT, _cH
+end
+
+local function _0xBK()
+    local _ch = _LivingF:GetChildren()
+    local _cM, _cR, _minD = nil, nil, _0x2B.MobFarmRange
+    
+    local _c = _LP.Character; if not _c then return nil, nil end
+    local _hrp = _c:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100, 82, 111, 111, 116, 80, 97, 114, 116)); if not _hrp then return nil, nil end
+    local _mP = _hrp.Position
+
+    local _cC = 0
+    
+    for _, _e in ipairs(_ch) do
+        _cC = _cC + 1
+        if _cC % 100 == 0 then task.wait() end
+        
+        if _e:IsA(_Str(77, 111, 100, 101, 108)) then
+            local _h = _e:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100))
+            if _h and not _h:FindFirstChild(_Str(83, 116, 97, 116, 117, 115)) then
+                
+                local _mA = false
+                
+                local _clE = string.gsub(_e.Name, _Str(37, 100, 43, 36), "")
+                _clE = string.match(_clE, _Str(94, 37, 115, 42, 40, 46, 45, 41, 37, 115, 42, 36)) or _clE
+                
+                if #_0x2B.TargetMobs == 0 then _mA = true
+                else
+                    for _, _t in ipairs(_0x2B.TargetMobs) do
+                        if _t == _clE then _mA = true; break end
+                    end
+                end
+                
+                if _mA then
+                    local _r = _e:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100, 82, 111, 111, 116, 80, 97, 114, 116))
+                    
+                    if _r and _h.Health > 0 then
+                        local _d = _0x3C(_mP, _r.Position)
+                        if _d < _minD then
+                            _minD = _d
+                            _cM = _e
+                            _cR = _r
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return _cM, _cR
+end
+
+spawn(function()
+    while true do
+        if _0x2B.Active then
+            local _t, _h = _0xAJ()
+            if _t and _h then
+                local _vM = _h.Parent
+                _CurStatus = _Str(77, 105, 110, 105, 110, 103, 32) .. _vM.Name
+                
+                local _aD = 5
+                local _hL = _0x6F(_vM) or 99999
+                local _tL = os.clock()
+                
+                while _0x2B.Active and _t.Parent do
+                    local _c = _LP.Character
+                    local _hrp = _c and _c:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100, 82, 111, 111, 116, 80, 97, 114, 116))
+                    if _Gui._op then 
+                        _CurStatus = _Str(80, 97, 117, 115, 101, 100, 32, 40, 77, 101, 110, 117, 32, 79, 112, 101, 110, 41)
+                        if _hrp then _hrp.AssemblyLinearVelocity = Vector3.new(0,0,0) end
+                        break 
+                    end
+                    
+                    local _cH = _0x6F(_vM)
+                    if _cH then
+                        if _cH < _hL then
+                            _hL = _cH
+                            _tL = os.clock()
+                        elseif (os.clock() - _tL) > 2 then
+                            _aD = _aD - 1
+                            if _aD < 3 then _aD = 6 end 
+                            _tL = os.clock() 
+                        end
+                    end
+
+                    if _h and _h.Parent then
+                        if not _0x7G(_h.Position) then _CurStatus = _Str(85, 110, 115, 97, 102, 101, 33, 32, 82, 101, 108, 111, 99, 97, 116, 105, 110, 103, 46, 46, 46); break end
+                        _0x9I(_h.Position, _aD, false) 
+                    else break end
+                    
+                    pcall(function() mouse1click(); keypress(0x31); keyrelease(0x31) end)
+                    wait(_0x2B.ClickDelay)
+                end
+                wait(0.1) 
+            else
+                _CurStatus = _Str(83, 101, 97, 114, 99, 104, 105, 110, 103, 32, 82, 111, 99, 107, 115, 46, 46, 46)
+                local _c = _LP.Character
+                if _c then
+                    local _hrp = _c:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100, 82, 111, 111, 116, 80, 97, 114, 116))
+                    if _hrp then
+                        local _cP = _hrp.Position
+                        local _aX, _aZ = _0x8H(_cP)
+                        local _aM = math.sqrt(_aX*_aX + _aZ*_aZ)
+                        if _aM > 0 then
+                            local _mDX, _mDZ = _aX / _aM, _aZ / _aM
+                            local _mS = _0x2B.SpeedCap 
+                            local _nX, _nZ = _cP.X + (_mDX * _mS), _cP.Z + (_mDZ * _mS)
+                            _hrp.Position = Vector3.new(_nX, _cP.Y, _nZ)
+                            _hrp.AssemblyLinearVelocity = Vector3.new(_mDX * 50, 0, _mDZ * 50)
+                        else
+                            _hrp.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                        end
+                    end
+                end
+                wait(0.1) 
+            end
+        elseif _0x2B.MobFarm then
+            local _m, _mR = _0xBK()
+            if _m and _mR then
+                _CurStatus = _Str(75, 105, 108, 108, 105, 110, 103, 32) .. _m.Name
+                
+                while _0x2B.MobFarm and _m.Parent and _m:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100)) and _m.Humanoid.Health > 0 do
+                    local _c = _LP.Character
+                    local _hrp = _c and _c:FindFirstChild(_Str(72, 117, 109, 97, 110, 111, 105, 100, 82, 111, 111, 116, 80, 97, 114, 116))
+                    
+                    if _Gui._op then 
+                        _CurStatus = _Str(80, 97, 117, 115, 101, 100, 32, 40, 77, 101, 110, 117, 32, 79, 112, 101, 110, 41)
+                        if _hrp then _hrp.AssemblyLinearVelocity = Vector3.new(0,0,0) end
+                        break 
+                    end
+
+                    if _mR then
+                        _0x9I(_mR.Position, 0, true)
+                    end
+
+                    pcall(function() 
+                        mouse1click() 
+                        keypress(0x32); keyrelease(0x32) 
+                    end)
+                    
+                    wait(_0x2B.ClickDelay)
+                end
+            else
+                _CurStatus = _Str(83, 101, 97, 114, 99, 104, 105, 110, 103, 32, 77, 111, 98, 115, 46, 46, 46)
+            end
+            wait(0.1)
+        else
+            _CurStatus = _Str(80, 97, 117, 115, 101, 100)
+            wait(0.2)
+        end
+        wait(0.05) 
+    end
+end)
+
+local function _GetS() return _CurStatus end
+_Gui = _0x1A.new(_Str(77, 97, 116, 99, 104, 97, 32, 77, 105, 110, 101, 114), Vector2.new(400, 420), {_GetS})
+
+local _locs = {}
+for _, _f in ipairs(_RocksBase:GetChildren()) do table.insert(_locs, _f.Name) end
+
+local _mT = _Gui:Tab(_Str(77, 97, 105, 110))
+local _mS = _Gui:Section(_mT, _Str(67, 111, 110, 116, 114, 111, 108, 115))
+_Gui:Checkbox(_mT, _mS, _Str(69, 110, 97, 98, 108, 101, 32, 77, 105, 110, 101, 114), false, function(_s) _0x2B.Active = _s end)
+_Gui:Checkbox(_mT, _mS, _Str(69, 110, 97, 98, 108, 101, 32, 77, 111, 98, 32, 70, 97, 114, 109), false, function(_s) _0x2B.MobFarm = _s end)
+
+local _dI 
+_dI = _Gui:DualChoice(_mT, _mS, 
+    _Str(84, 97, 114, 103, 101, 116, 115), {}, function(_v) _0x2B.TargetRocks = _v end, _0x4D(),
+    _Str(76, 111, 99, 97, 116, 105, 111, 110), _Str(73, 115, 108, 97, 110, 100, 50, 86, 111, 108, 99, 97, 110, 105, 99, 68, 101, 112, 116, 104, 115), function(_v)
+        local _nF = _RocksBase:FindFirstChild(_v)
+        if _nF then
+            _0x2B.CurrentRockFolder = _nF
+            local _nR = _0x4D()
+            if _dI then
+                _dI.ch1 = _nR 
+                _dI.v1 = {} 
+                _0x2B.TargetRocks = {} 
+                print(_Str(76, 111, 99, 97, 116, 105, 111, 110, 32, 117, 112, 100, 97, 116, 101, 100, 58, 32) .. _v)
+            end
+        end
+    end, _locs
+)
+
+local _mDI
+_mDI = _Gui:DualChoice(_mT, _mS,
+    _Str(77, 111, 98, 32, 84, 97, 114, 103, 101, 116, 115), {}, function(_v) _0x2B.TargetMobs = _v end, _0x5E(),
+    _Str(82, 101, 102, 114, 101, 115, 104, 32, 77, 111, 98, 115), _Str(67, 108, 105, 99, 107), function() 
+        if _mDI then
+            _mDI.ch1 = _0x5E() 
+            print(_Str(77, 111, 98, 32, 108, 105, 115, 116, 32, 114, 101, 102, 114, 101, 115, 104, 101, 100))
+        end
+    end, {_Str(67, 108, 105, 99, 107)} 
+)
+
+local _sT = _Gui:Tab(_Str(83, 101, 116, 116, 105, 110, 103, 115))
+local _mvS = _Gui:Section(_sT, _Str(77, 111, 118, 101, 109, 101, 110, 116))
+_Gui:Slider(_sT, _mvS, _Str(83, 112, 101, 101, 100, 32, 67, 97, 112), _0x2B.SpeedCap, function(_v) _0x2B.SpeedCap = _v end, 1, 10, 1, _Str(32, 115, 116, 117, 100, 115))
+_Gui:Slider(_sT, _mvS, _Str(83, 109, 111, 111, 116, 104, 110, 101, 115, 115), _0x2B.MovementSpeed, function(_v) _0x2B.MovementSpeed = _v end, 0.01, 1, 0.01, '')
+_Gui:Slider(_sT, _mvS, _Str(67, 108, 105, 99, 107, 32, 68, 101, 108, 97, 121), _0x2B.ClickDelay, function(_v) _0x2B.ClickDelay = _v end, 0.01, 1, 0.01, _Str(115))
+
+local _sfT = _Gui:Tab(_Str(83, 97, 102, 101, 116, 121))
+local _sfS = _Gui:Section(_sfT, _Str(65, 118, 111, 105, 100, 97, 110, 99, 101))
+_Gui:Slider(_sfT, _sfS, _Str(77, 111, 98, 32, 83, 97, 102, 101, 32, 82, 97, 100, 105, 117, 115), _0x2B.SafeRadius, function(_v) _0x2B.SafeRadius = _v end, 10, 100, 5, _Str(32, 115, 116, 117, 100, 115))
+_Gui:Slider(_sfT, _sfS, _Str(80, 108, 97, 121, 101, 114, 32, 68, 105, 115, 116), _0x2B.PlayerMiningDist, function(_v) _0x2B.PlayerMiningDist = _v end, 5, 50, 5, _Str(32, 115, 116, 117, 100, 115))
+_Gui:Slider(_sfT, _sfS, _Str(77, 111, 98, 32, 69, 118, 97, 100, 101, 32, 68, 105, 115, 116), _0x2B.MobAvoidDist, function(_v) _0x2B.MobAvoidDist = _v end, 10, 50, 5, _Str(32, 115, 116, 117, 100, 115))
+_Gui:Slider(_sfT, _sfS, _Str(69, 118, 97, 100, 101, 32, 70, 111, 114, 99, 101), _0x2B.AvoidStrength, function(_v) _0x2B.AvoidStrength = _v end, 1, 10, 0.5, '')
+_Gui:Slider(_sfT, _sfS, _Str(77, 111, 98, 32, 70, 97, 114, 109, 32, 82, 97, 110, 103, 101), _0x2B.MobFarmRange, function(_v) _0x2B.MobFarmRange = _v end, 100, 5000, 100, _Str(32, 115, 116, 117, 100, 115))
+
+while true do
+    if iskeypressed(0x23) then 
+        _Gui:ToggleMenu(not _Gui._op)
+        while iskeypressed(0x23) do wait(0.05) end 
+    end
+    _Gui:Step()
+    wait(0.005)
+end
